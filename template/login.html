@@ -1,0 +1,26 @@
+{% extends 'dreamwalk_base.html' %}
+{% load static %}
+{% block title %}login{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+{% endblock %}
+{% block login_active%}active{% endblock %}
+
+{% block block_content %}
+    <div class="content">
+        <form class="card login-form" method="POST">
+            {% csrf_token %}
+            <h3 class="company-name">Dreamwalk</h3>
+            <div class="user-icon-container">
+                <i class="fas fa-user"></i>
+            </div>
+            <input class="form-control" type="text" name="username" id="username" placeholder="Username" required>
+            <input class="form-control" type="password" name="password" id="password" placeholder="Password" required>
+            <input class="btn button-purple" type="submit" value="login">
+        </form>
+        {% if error %}
+            <h6 class="error">Invalid username or password</h6>
+        {% endif %}
+        <a href="" class="password-reset-link">Forgot password?</a>
+    </div> 
+{% endblock %}

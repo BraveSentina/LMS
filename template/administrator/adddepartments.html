@@ -1,0 +1,21 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}Add Department{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/administrator/adddepartments.css' %}"> {% endblock %}
+{% block main_topic %} ADD DEPARTMENT {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'administrator:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'administrator:departments_page' %}">Department/</a> 
+        <a href="{% url 'administrator:adddepartments_page' %}">AddDepartment/</a> 
+    </p>
+    <div class="content">
+        <form class="card-container" method="POST">
+            {% csrf_token %}
+            <input type="text" name="department_name" id="" class="form-control" placeholder="Enter department name" required>
+            <input type="submit" value="add" class="btn button-orange">
+        </form>
+    </div>
+</div>
+{% endblock %}

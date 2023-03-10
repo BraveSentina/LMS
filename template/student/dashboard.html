@@ -1,0 +1,20 @@
+{% extends 'student_base.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/student/dashboard.css' %}"> {% endblock %}
+{% block main_topic %} DASHBOARD {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'student:dashboard_page' %}">Dashboard/</a> 
+    </p>
+    <div class="content">
+       <div class="card-container">
+        {% for subject in subjects %}
+            <a class="card subjects" href="{% url 'student:studymaterials_page' subject.id %}">{{ subject.subject_name }}</a>
+            
+        {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}

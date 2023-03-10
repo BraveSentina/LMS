@@ -1,0 +1,18 @@
+.card-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-container .syllabus{
+    min-height: 150px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-width: 200px;
+}
+
+.card-container .syllabus a{
+    text-align: center;
+}

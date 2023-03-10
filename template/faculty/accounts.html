@@ -1,0 +1,58 @@
+{% extends 'faculty_base.html' %}
+{% load static %}
+{% block title %}Accounts{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/faculty/accounts.css' %}"> {% endblock %}
+{% block main_topic %} ACCOUNTS {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'faculty:accounts_page' %}">Accounts/</a> 
+       
+    </p>
+    <div class="content">
+       <div class="card details">
+            <table>
+                <tr>
+                    <th>Username</th>
+                    <td>{{ facultyuser.user.username }}</td>
+                </tr>
+                <tr>
+                    <th>Department</th>
+                    <td>{{ facultyuser.department }}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{ facultyuser.user.email }}</td>
+                </tr>
+            </table>
+       </div>
+       {% if facultysubjectaccess %}
+       <div class="card details">
+        <h4 class="sub-topic">Alloted subjects</h4>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Sl.no</th>
+                    <th>Subjects</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for fac in facultysubjectaccess %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ fac.subject.subject_name }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <h4>No subject has been alloted to you</h4>
+        {% endif %}
+       </div>
+       <div class="card-container">
+            <a class="card account" href="{% url 'faculty:logs_page' %}">Logs</a>
+            <a class="card account" href="#">Change password</a>
+       </div>
+    </div>
+</div>
+{% endblock %}

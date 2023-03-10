@@ -1,0 +1,13 @@
+.add-student-form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.comment{
+    color: grey;
+}
+
+.error{
+    color: red;
+}

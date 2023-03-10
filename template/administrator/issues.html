@@ -1,0 +1,47 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}Issues{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/administrator/issues.css' %}"> {% endblock %}
+{% block main_topic %} ISSUES {% endblock %}
+{% block block_content %}
+<div class="content">
+    <p class="card nav-path-container">
+        <a href="{% url 'administrator:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'administrator:notice_page' %}">Notice/</a> 
+    </p>
+   <div class="card-container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Sl.No</th>
+                <th>Date created</th>
+                <th>user</th>
+                <th>user type</th>
+                <th>issue</th>
+                <th>is solved</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for issue in issues %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ issue.created_on }}</td>
+                <td>{{ issue.user }}</td>
+                <td>
+                    {% if user.is_faculty %}
+                        Faculty
+                    {% else %}
+                        Student
+                    {% endif %}
+                </td>
+                <td>{{ issue.issue }}</td>
+                <td>{{ issue.is_solved }} <a href="{% url 'administrator:set_issue_solved_to_true' issue.id %}" class="green-link">resolved</a> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+   </div>
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}Maintenance{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/administrator/maintenance.css' %}"> {% endblock %}
+{% block main_topic %} MAINTENANCE {% endblock %}
+{% block block_content %}
+<div class="content">
+    <p class="card nav-path-container">
+        <a href="{% url 'administrator:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'administrator:maintenance_page' %}">Maintenance/</a> 
+    </p>
+    <h6 class="sub-topic">Kindly note, this notice will be sent to all the modules</h6>
+    <form class="card card-container" method="POST">
+        {% csrf_token %}
+        <span>
+            Maintenance status: 
+            <label class="switch">
+                {% if maintenance %}
+                    {% if maintenance.is_ongoing %}
+                        <input type="checkbox" name="maintenance_status" id="checkbox" checked>
+                    {% else %}
+                        <input type="checkbox" name="maintenance_status" id="checkbox" >
+                    {% endif %}
+                {% else %}
+                    <input type="checkbox" name="maintenance_status" id="checkbox">
+                {% endif %}
+                <span class="slider round"></span>
+            </label>
+        </span>
+        <input type="submit" value="save" class="btn button-orange">
+    </form>
+
+</div>
+
+{% endblock %}

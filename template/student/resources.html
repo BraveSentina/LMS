@@ -1,0 +1,35 @@
+{% extends 'student_base.html' %}
+{% load static %}
+{% block title %}Resources{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/student/resources.css' %}"> {% endblock %}
+{% block main_topic %} RESOURCES {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'student:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'student:studymaterials_page' subject.id %}">{{ subject.subject_name }}/</a> 
+        <a href="{% url 'student:resources_page' subject.id %}">Resources/</a> 
+    </p>
+    <div class="content">
+        <form action="" method="get" class="form search-container">
+            <input class="form-control search" type="text" name="keyword">
+            <input class="btn button-purple" type="submit" value="search">
+        </form>
+       <div class="card-container">
+        {% if resources %}
+            {% for resource in resources %}
+                <div class="card resource">
+                    <i class="fas fa-file" style="color:red;font-size: 30px;"></i>
+                    <a href="{{ resource.resource_file.url }}" target="_blank">{{ resource.resource_file }}</a>
+                    <span class="card">
+                        {{ resource.title }}
+                    </span>
+                </div>
+            {% endfor %}
+        {% else %}
+            <h4>No data to display</h4>
+        {% endif %}
+       </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,13 @@
+.issue{
+    outline: none;
+}
+
+.sub-topic{
+    color: grey;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

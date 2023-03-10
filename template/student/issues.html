@@ -1,0 +1,27 @@
+{% extends 'student_base.html' %}
+{% load static %}
+{% block title %}Help{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/student/issues.css' %}"> {% endblock %}
+{% block main_topic %} Help {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'student:issues_page' %}">Help/</a> 
+    </p>
+    <form class="content" method="POST">
+        {% csrf_token %}
+        <h6 class="sub-topic">Dear user, if you are facing any issues while using the app, let us know and we will reach out to you ASAP!</h6>
+        <textarea class="issue" name="issue" id="" cols="30" rows="10" required></textarea>
+        <input class="btn button-purple" type="submit" value="submit">
+    </form>
+</div>
+{% if success %}
+    <script>
+        window.onload = function(){
+            setTimeout(function(){
+                alert('We have recorded your response and will reach out to you shortly');
+            },1000);    
+        }
+    </script>
+{% endif %}
+{% endblock %}

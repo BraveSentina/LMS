@@ -1,0 +1,38 @@
+{% extends 'student_base.html' %}
+{% load static %}
+{% block title %}References{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/student/references.css' %}"> {% endblock %}
+{% block main_topic %} References {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'student:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'student:studymaterials_page' subject.id %}">{{ subject.subject_name }}/</a> 
+        <a href="{% url 'student:references_page' subject.id %}">References/</a> 
+    </p>
+    <div class="content">
+       <table class="table">
+            <thead class="thead">
+                <tr>
+                    <th>SL.NO</th>
+                    <th>TITLE</th>
+                    <th>LINK</th>
+                    <th>DESCRIPTION</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for reference in references %}
+                <tr>
+                    <td>{{ forloop.counter }}</td>
+                    <td>{{ reference.title }}</td>
+                    <td>
+                        <a href="{{ reference.link }}">click to visit</a>
+                    </td>
+                    <td>{{ reference.description }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+       </table>
+    </div>
+</div>
+{% endblock %}

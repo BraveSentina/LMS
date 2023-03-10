@@ -1,0 +1,46 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}Subject{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/administrator/subjects.css' %}"> {% endblock %}
+{% block main_topic %} SUBJECTS {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'administrator:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'administrator:departments_page' %}">{{ department.department_name }}/</a> 
+        <a href="{% url 'administrator:courses_page' department.id %}">{{ course.course_name }}/</a> 
+        <a href="{% url 'administrator:semesters_page' course.id %}">Semester {{ semester.sem }}/</a> 
+        <a href="{% url 'administrator:subjects_page' semester.id %}">Subjects/</a> 
+    </p>
+    <div class="content">
+        <a href="{% url 'administrator:addsubjects_page' semester.id %}" class="add-subject-link">Click to add new subject</a>
+        {% if subjects %}
+        <table class="table card-container">
+            <thead>
+                <tr>
+                    <th>Subjects</th>
+                    <th>Activity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for subject in subjects %}
+                <tr>
+                    <td>
+                        <span class="card small-cards">{{ subject.subject_name }}</span>
+                    </td>
+                    <td>
+                        <a href="{% url 'administrator:delete_subjects' subject.id %}" class="red-link">
+                            delete
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <h4 class="sub-topic">No subjects found</h4>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

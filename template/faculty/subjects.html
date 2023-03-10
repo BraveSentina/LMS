@@ -1,0 +1,25 @@
+{% extends 'faculty_base.html' %}
+{% load static %}
+{% block title %}Subjects{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/faculty/subjects.css' %}"> {% endblock %}
+{% block main_topic %} SUBJECTS {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'faculty:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'faculty:semesters_page' course.id %}">Semester {{ semester.sem }}/</a> 
+        <a href="{% url 'faculty:subjects_page' semester.id %}">Subjects/</a> 
+    </p>
+    <div class="content">
+        {% if facultysubjectaccess %}
+        <div class="card-container">
+            {% for fac in facultysubjectaccess %}
+                <a class="card subjects" href="{% url 'faculty:studymaterials_page' fac.subject.id %}">{{ fac.subject.subject_name }}</a>
+            {% endfor %}
+        </div>
+        {% else %}
+            <h4>No data to display</h4>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,64 @@
+{% extends 'faculty_base.html' %}
+{% load static %}
+{% block title %}Video lectures{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/faculty/videolectures.css' %}"> {% endblock %}
+{% block main_topic %} VIDEO LECTURES {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'faculty:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'faculty:semesters_page' course.id %}">Semester {{ semester.sem }}/</a> 
+        <a href="{% url 'faculty:subjects_page' semester.id %}">{{ subject.subject_name }}/</a> 
+        <a href="{% url 'faculty:studymaterials_page' subject.id %}">Studymaterials/</a> 
+        <a href="{% url 'faculty:videolectures_page' subject.id %}">Videolectures/</a> 
+    </p>
+    <div class="content">
+        <form action="" method="GET" class="form search-container">
+            <input class="form-control search" type="text" name="keyword" placeholder="Enter text to search">
+            <input class="btn button-blue" type="submit" value="search">
+        </form>
+        <a href="{% url 'faculty:addvideolectures_page' subject.id %}" class="add-videolecture-link">New video lecture</a>
+        {% if videolectures %}
+        <div class="card-container">
+            {% for videolecture in videolectures %}
+            <form class="card videolecture" method="POST" action="{% url 'faculty:update_videolectures' videolecture.id %}">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <th>Sl.no</th>
+                        <td>
+                            {{ forloop.counter }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Link:</th>
+                        <td>
+                            <a href="{{ videolecture.video_link.url }}" target="_blank">{{ videolecture.video_link }}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Title</th>
+                        <td>
+                            <input class="form-control" type="text" name="videolecture_title" id="" value="{{ videolecture.title }}" placeholder="Enter title">
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Description</th>
+                        <td>
+                            <input class="form-control" type="text" name="videolecture_description" id="" value="{{ videolecture.description }}" placeholder="Enter title">
+                        </td>
+                    </tr>
+                </table>
+                <div class="buttons-container">
+                    <a class="red-link" href="{% url 'faculty:delete_videolectures' videolecture.id %}">delete</a>
+                    <input type="submit" value="update" class="btn button-blue">
+                </div>
+            </form>
+            {% endfor %}
+        </div>
+        {% else %}
+            <h4 class="sub-topic">No data to display</h4>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

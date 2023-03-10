@@ -1,0 +1,31 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}Logs{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/student/references.css' %}"> {% endblock %}
+{% block main_topic %} Logs {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'faculty:accounts_page' %}">Accounts/</a> 
+        <a href="{% url 'faculty:logs_page' %}">Logs/</a> 
+    </p>
+    <div class="content">
+       <table class="table">
+            <thead class="thead">
+                <tr>
+                    <th>DATE</th>
+                    <th>ACTIVITY</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for log in logs %}
+                <tr>
+                    <td>{{ log.created_on }}</td>
+                    <td>{{ log.log }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+       </table>
+    </div>
+</div>
+{% endblock %}

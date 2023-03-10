@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}base{% endblock %}</title>
+   
+    <script src="{% static 'jquery/jquery.js' %}"></script>
+   
+    <link rel="stylesheet" href="{% static 'bootstrap/css/bootstrap.min.css' %}">
+    <script src="{% static 'bootstrap/js/bootstrap.min.js' %}"></script>
+
+    <link rel="stylesheet" href="{% static 'fontawesome/css/all.min.css' %}">
+    <script src="{% static 'fontawesome/js/all.min.js' %}"></script>
+   
+    <link rel="stylesheet" href="{% static 'css/student_base.css' %}?{% now 'U' %}">
+    {% block custom_link %} {% endblock %}
+</head>
+<body>
+    <div class="navigation">
+        <div class="toggle-container">
+            <div class="toggle" onclick="toggleNavigation();">
+                <span class="toggle-line"></span>
+                <span class="toggle-line"></span>
+                <span class="toggle-line"></span>
+            </div>
+        </div>
+        
+        <div class="profile">
+            <i class="fas fa-user" style="background: linear-gradient(to right,rgb(153,84,204),rgb(77,121,199));
+            font-size: 50px;padding:10px 15px;border-radius: 50%;box-shadow: 0 0 4px 1px rgba(140, 43, 199, 0.69);"></i>
+        
+    </div>
+        <div class="company-name-container">
+            <h4 class="company-name">Dreamwalk</h4>
+        </div>
+        <div class="nav-links">
+            <a href="{% url 'student:dashboard_page' %}">
+                <span class="nav-text">dashboard</span>
+                <span class="nav-icon">
+                    <i class="fas fa-gauge"></i>
+                </span>
+            </a>
+            <a href="{% url 'student:accounts_page' %}" >
+                <span class="nav-text">Accounts</span>
+                <span class="nav-icon">
+                    <i class="fas fa-user"></i>
+                </span>
+            </a>
+            <a href="{% url 'student:issues_page' %}">
+                <span class="nav-text">Need help?</span>
+                <span class="nav-icon">
+                    <i class="fas fa-question fa-solid"></i>
+                </span>
+            </a>
+            <a href="{% url 'do_logout' %}">
+                <span class="nav-text">Logout</span>
+                <span class="nav-icon">
+                    <i class="fas fa-right-from-bracket"></i>
+                </span>
+            </a>
+        </div>
+
+    </div>
+    <div class="box">
+        <h1 class="main-topic">{% block main_topic %}base{% endblock %}</h1> 
+        <h6 class="email">Welcome, {{ request.user.username }}</h6>
+
+        <div class="notice-container">
+            Notice: <span style="color:red;">Server will be undergoing maintenance on March 25 2023</span>
+        </div>
+        {% block block_content %}   
+        {% endblock %}
+    </div>
+</body>
+<script src="{% static 'js/student_base.js' %}"></script>
+</html>

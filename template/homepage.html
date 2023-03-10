@@ -1,0 +1,41 @@
+{% extends 'dreamwalk_base.html' %}
+{% load static %}
+{% block title %}Homepage{% endblock %}
+{% block custom_css %}
+    <link rel="stylesheet" href="{% static 'css/homepage.css' %}">
+{% endblock %}
+{% block home_active%}active{% endblock %}
+{% block block_content %}
+    <div class="content">
+        <h1 class="company-name">Dreamwalk</h1>
+        <p class="card purple-card">
+            Hey professional scholars!! <br>
+            Ever felt if you could have study resources in one place?
+            Well, you have come to the right place... This web app helps you to access all the resources made available to you, and not only that, faculties can add resources as they progress 
+            with their subjects and student will have access to those contents any time. <br>
+            This application is an online learning management system where it makes it easier and convenient for students and teachers to access and utilize the resources. <br>
+            Be it pdf, excel, or doc to video lectures such as youtube videos, we are there to assist you in your journey.
+        </p>
+        <div class="icon-container">
+            <div class="icon">
+                <i class="fas fa-book"></i>
+            </div>
+            <div class="icon">
+                <i class="fas fa-file-pdf"></i>
+            </div>
+            <div class="icon">
+                <i class="fas fa-user"></i>
+            </div>
+            <div class="icon">
+                <i class="fa-brands fa-youtube"></i>
+            </div>
+            <div class="icon">
+                <i class="fas fa-file-excel"></i>
+            </div>
+        </div>
+        <div class="images">
+            <img src="{% static 'images/home1.jpeg' %}" alt="Image not found">
+            <img src="{% static 'images/home2.jpeg' %}" alt="Image not found">
+        </div>
+    </div>
+{% endblock %}

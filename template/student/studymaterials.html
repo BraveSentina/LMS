@@ -1,0 +1,21 @@
+{% extends 'student_base.html' %}
+{% load static %}
+{% block title %}Study materials{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/student/studymaterials.css' %}"> {% endblock %}
+{% block main_topic %} STUDY MATERIALS {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'student:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'student:studymaterials_page' subject.id %}">{{ subject.subject_name }}/</a> 
+    </p>
+    <div class="content">
+       <div class="card-container">
+           <a href="{% url 'student:resources_page' subject.id %}" class="card material">Resources</a>
+           <a href="{% url 'student:syllabus_page' subject.id %}" class="card material">Syllabus</a>
+           <a href="{% url 'student:videolectures_page' subject.id %}" class="card material">Video Lectures</a>
+           <a href="{% url 'student:references_page' subject.id %}" class="card material">Links or references</a>
+       </div>
+    </div>
+</div>
+{% endblock %}

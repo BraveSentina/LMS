@@ -1,0 +1,24 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}Add Subjects{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/administrator/addsubjects.css' %}"> {% endblock %}
+{% block main_topic %} ADD SUBJECTS {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'administrator:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'administrator:departments_page' %}">{{ department.department_name }}/</a> 
+        <a href="{% url 'administrator:courses_page' department.id %}">{{ course.course_name }}/</a> 
+        <a href="{% url 'administrator:semesters_page' course.id %}">Semesters/</a> 
+        <a href="{% url 'administrator:subjects_page' semester.id %}">Semesters/</a> 
+        <a href="{% url 'administrator:addsubjects_page' semester.id %}">AddSemesters/</a> 
+    </p>
+    <div class="content">
+        <form class="card-container" method="POST">
+            {% csrf_token %}
+            <input type="text" name="subject_name" id="" class="form-control" placeholder="Enter subject" required>
+            <input type="submit" value="add" class="btn button-orange">
+        </form>
+    </div>
+</div>
+{% endblock %}

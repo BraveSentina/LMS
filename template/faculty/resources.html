@@ -1,0 +1,58 @@
+{% extends 'faculty_base.html' %}
+{% load static %}
+{% block title %}Resources{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/faculty/resources.css' %}"> {% endblock %}
+{% block main_topic %} RESOURCES {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'faculty:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'faculty:semesters_page' course.id %}">Semester {{ semester.sem }}/</a> 
+        <a href="{% url 'faculty:subjects_page' semester.id %}">{{ subject.subject_name }}/</a> 
+        <a href="{% url 'faculty:studymaterials_page' subject.id %}">Studymaterials/</a> 
+        <a href="{% url 'faculty:resources_page' subject.id %}">Resources/</a> 
+    </p>
+    <div class="content">
+        <form action="" method="get" class="form search-container">
+            <input class="form-control search" type="text" name="keyword" placeholder="Enter text to search">
+            <input class="btn button-blue" type="submit" value="search">
+        </form>
+        <a href="{% url 'faculty:addresources_page' subject.id %}" class="add-resource-link">Click to add new resource</a>
+        {% if resources %}
+        <div class="card-container">
+            {% for resource in resources %}
+            <form class="card resource" method="POST" action="{% url 'faculty:update_resources' resource.id %}">
+                {% csrf_token %}
+                <table>
+                    <tr>
+                        <th>Sl.no</th>
+                        <td>
+                            {{ forloop.counter }}
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Link: </th>
+                        <td>
+                            <a href="{{ resource.resource_file.url }}" target="_blank">{{ resource.resource_file.url }}</a>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th>Title</th>
+                        <td>
+                            <input class="form-control" type="text" name="resource_title" id="" value="{{ resource.title }}" placeholder="Enter title">
+                        </td>
+                    </tr>
+                </table>
+                <div class="buttons-container">
+                    <a class="red-link" href="{% url 'faculty:delete_resources' resource.id %}">delete</a>
+                    <input type="submit" value="update" class="btn button-blue">
+                </div>
+            </form>
+            {% endfor %}
+        </div>
+        {% else %}
+            <h4 class="sub-topic">No data to display</h4>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

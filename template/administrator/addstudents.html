@@ -1,0 +1,108 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}Add Students{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/administrator/addstudents.css' %}"> {% endblock %}
+{% block main_topic %} ADD STUDENTS {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'administrator:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'administrator:users_page' %}">Users/</a> 
+        <a href="{% url 'administrator:addstudents_page' %}">AddStudents/</a> 
+    </p>
+    <div class="content">
+        <form method="POST" class="add-student-form">
+            {% csrf_token %}
+            <input class="form-control" type="text" name="student_name" id="" placeholder="Enter student" required>
+            <input class="form-control" type="password" name="password" id="" value="password" placeholder="Enter password" required>
+            <h6 class="comment">Default password is 'password'</h6>
+
+            <select class="form-control" name="department" id="department" required>
+                <option value="" selected disabled>---Select department---</option>
+                
+                {% for department in departments %}
+                    <option value="{{ department.id }}">{{ department.department_name }}</option>
+                {% endfor %}
+            </select>
+            
+            <select class="form-control" name="course" id="course" required>
+                <option value="" selected disabled>---Select course---</option>
+
+            </select>
+            
+            <select class="form-control" name="semester" id="semester" required>
+                <option value="" selected disabled>---Select semester---</option>
+            </select>
+
+            <input class="btn button-orange" type="submit" value="add">
+            {% if error %}
+                <h6 class="error">User already exists</h6>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% if success %}
+    <script>
+        window.onload = function(){
+            setTimeout(function(){
+                alert('User created successfully');
+            },1000);    
+        }
+    </script>
+{% endif %}
+<script>
+    $('#department').change(function (e) { 
+        let department_id = e.target.value;
+
+        $.ajax({
+            type: "GET",
+            url: "{% url 'administrator:get_courses_json' %}",
+            data: {
+                department_id:department_id,
+            },
+            success: function (response) {
+                console.log("Data success");
+                let courses = response.data;
+                let course = document.getElementById('course').innerHTML = `
+                    <option value="" selected disabled>---Select course---</option>
+                `
+                let semester = document.getElementById('semester').innerHTML = `
+                    <option value="" selected disabled>---Select semester---</option>
+                `
+                courses.map(item=>{
+                    let option = document.createElement('option')
+                    option.value = item.id;
+                    option.textContent = item.course_name;
+                    $('#course').append(option);
+                });
+            },
+        });
+    });
+
+    $('#course').change(function (e) { 
+        let course_id = e.target.value;
+
+        $.ajax({
+            type: "GET",
+            url: "{% url 'administrator:get_semesters_json' %}",
+            data: {
+                course_id:course_id,
+            },
+            success: function (response) {
+                console.log("Data success");
+                let semesters = response.data;
+                let semester  = document.getElementById('semester').innerHTML = `
+                    <option value="" selected disabled>---Select semester---</option>
+                `
+                semesters.map(item=>{
+                    let option = document.createElement('option')
+                    option.value = item.id;
+                    option.textContent = item.sem;
+                    $('#semester').append(option);
+                });
+            },
+        });
+    });
+
+</script>
+{% endblock %}

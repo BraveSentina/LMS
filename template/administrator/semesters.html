@@ -1,0 +1,45 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}Semesters{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/administrator/semesters.css' %}"> {% endblock %}
+{% block main_topic %} SEMESTERS {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'administrator:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'administrator:departments_page' %}">{{ department.department_name }}/</a> 
+        <a href="{% url 'administrator:courses_page' department.id %}">{{ course.course_name }}/</a> 
+        <a href="{% url 'administrator:semesters_page' course.id %}">Semesters/</a> 
+    </p>
+    <div class="content">
+        <a href="{% url 'administrator:addsemesters_page' course.id %}" class="add-semester-link">Click to add new semester</a>
+        {% if semesters %}
+        <table class="table card-container">
+            <thead>
+                <tr>
+                    <th>Semesters</th>
+                    <th>Activity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for semester in semesters %}
+                <tr>
+                    <td>
+                        <a class="card small-cards" href="{% url 'administrator:subjects_page' semester.id %}">{{ semester.sem }}</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'administrator:delete_semesters' semester.id %}" class="red-link">
+                            delete
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <h4 class="sub-topic">No semesters found</h4>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

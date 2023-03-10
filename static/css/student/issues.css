@@ -1,0 +1,14 @@
+.issue{
+    margin-bottom: 10px;
+    outline: none;
+    margin-top: 5px;
+}
+
+.sub-topic{
+    color: grey;
+}
+
+.content{
+    display: flex;
+    flex-direction: column;
+}

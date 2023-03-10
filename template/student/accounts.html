@@ -1,0 +1,40 @@
+{% extends 'student_base.html' %}
+{% load static %}
+{% block title %}Accounts{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/student/accounts.css' %}"> {% endblock %}
+{% block main_topic %} ACCOUNTS {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'student:accounts_page' %}">Accounts/</a> 
+       
+    </p>
+    <div class="content">
+       <div class="card details">
+            <table>
+                <tr>
+                    <th>Username</th>
+                    <td>{{ user.username }}</td>
+                </tr>
+                <tr>
+                    <th>Department</th>
+                    <td>{{ studentuser.semester.course.department }}</td>
+                </tr>
+                <tr>
+                    <th>Sem</th>
+                    <td>{{ studentuser.semester.sem }}</td>
+                </tr>
+
+                <tr>
+                    <th>Email</th>
+                    <td>{{ user.email }}</td>
+                </tr>
+            </table>
+       </div>
+       <div class="card-container">
+            <a class="card account" href="{% url 'student:logs_page' %}">Logs</a>
+            <a class="card account" href="#">Change password</a>
+       </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,135 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}Add Faculties{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/administrator/addstudents.css' %}"> {% endblock %}
+{% block main_topic %} ADD FACULTIES {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'administrator:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'administrator:users_page' %}">Users/</a> 
+        <a href="{% url 'administrator:addfaculties_page' %}">AddFaculties/</a> 
+    </p>
+    <div class="content">
+        <form method="POST" class="add-student-form">
+            {% csrf_token %}
+            <input class="form-control" type="text" name="faculty_name" placeholder="Enter faculty" required>
+            <input class="form-control" type="password" name="password" value="password" placeholder="Enter password" required>
+            <h6 class="comment">Default password is 'password'</h6>
+
+            <select class="form-control" name="department" id="department" required>
+                <option value="" selected disabled>---Select department---</option>
+                
+                {% for department in departments %}
+                    <option value="{{ department.id }}">{{ department.department_name }}</option>
+                {% endfor %}
+            </select>
+            
+            <div class="card selections-container">
+              
+            </div>
+
+
+            <input class="btn button-orange" type="submit" value="add">
+            {% if error %}
+                <h6 class="error">User already exists</h6>
+            {% endif %}
+        </form>
+    </div>
+</div>
+{% if success %}
+    <script>
+        window.onload = function(){
+            setTimeout(function(){
+                alert('User created successfully');
+            },1000);    
+        }
+    </script>
+{% endif %}
+<script>
+    $('#department').change(function (e) { 
+        let department_id = e.target.value;
+
+        $.ajax({
+            type: "GET",
+            url: "{% url 'administrator:get_courses_json' %}",
+            data: {
+                department_id:department_id,
+            },
+            success: function (response) {
+                console.log("Data success");
+                
+                let selections_container = $('.selections-container')[0];
+                selections_container.innerHTML = ``;
+                let course_ol = document.createElement('ol');
+                selections_container.appendChild(course_ol)
+
+                let courses = response.data;
+                courses.map(courseitem=>{
+                    let course_id = courseitem.id;
+                    let course_li = document.createElement('li');
+                    // course_li.innerHTML = courseitem.course_name+`
+                    let semester_ul = document.createElement('ul');
+
+                    $.ajax({
+                        type: "GET",
+                        url: "{% url 'administrator:get_semesters_json' %}",
+                        data: {
+                            course_id:course_id
+                        },
+                        success: function (response2) {
+                            let semesters = response2.data;
+
+                            semesters.map(semesteritem=>{
+                                let semester_li = document.createElement('li');
+                                let semester_id = semesteritem.id;
+
+                                $.ajax({
+                                    type: "GET",
+                                    url: "{% url 'administrator:get_subjects_json' %}",
+                                    data: {
+                                        semester_id:semester_id
+                                    },
+                                    success: function (response3) {
+                                        let subjects = response3.data;
+                                        let subject_ul = document.createElement('ul');
+
+                                        subjects.map(subjectitem=>{
+                                            let subject_li = document.createElement('li');
+                                            subject_li.textContent = subjectitem.subject_name;
+                                            
+                                            let checkbox = document.createElement('input');
+                                            checkbox.type = 'checkbox';
+                                            checkbox.name = 'subjects';
+                                            checkbox.value = subjectitem.id;
+                                            subject_li.appendChild(checkbox);
+
+
+
+                                            subject_ul.appendChild(subject_li);
+                                        });
+
+                                        semester_li.appendChild(subject_ul);
+                                    }
+                                });
+                                
+                                semester_li.textContent = semesteritem.sem;
+
+                                semester_ul.appendChild(semester_li);
+                            });
+                        }
+                    });
+                    course_li.textContent = courseitem.course_name;
+                    course_li.appendChild(semester_ul)
+
+                    
+                    
+                    
+                    
+                    course_ol.appendChild(course_li)
+                });
+            },
+        });
+    });
+</script>
+{% endblock %}

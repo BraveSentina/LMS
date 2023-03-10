@@ -1,0 +1,33 @@
+{% extends 'student_base.html' %}
+{% load static %}
+{% block title %}Video lectures{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/student/videolectures.css' %}"> {% endblock %}
+{% block main_topic %} VIDEO LECTURES {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'student:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'student:studymaterials_page' subject.id %}">{{ subject.subject_name }}/</a> 
+        <a href="{% url 'student:videolectures_page' subject.id %}">Video Lectures/</a> 
+    </p>
+    <div class="content">
+        <form method="GET" class="form search-container">
+            <input class="form-control search" type="text" name="keyword">
+            <input class="btn button-purple" type="submit" value="search">
+        </form>
+       {% if videolectures %}
+            <div class="card-container">
+            {% for videolecture in videolectures %}
+                <div class="card video-container">
+                    <iframe class="video" width="560" height="315" src="{{ videolecture.video_link }}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>                
+                    <h5>{{ videolecture.title }}</h3>
+                    <h6>{{ videolecture.description }}</h3>
+                </div>
+            {% endfor %}
+        </div>
+        {% else %}
+            <h4>No data to display</h4>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

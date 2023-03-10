@@ -1,0 +1,24 @@
+{% extends 'faculty_base.html' %}
+{% load static %}
+{% block title %}Semester{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/faculty/semesters.css' %}"> {% endblock %}
+{% block main_topic %} SEMESTER {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'faculty:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'faculty:semesters_page' course.id %}">Semester/</a> 
+    </p>
+    <div class="content">
+        {% if semesters %}
+        <div class="card-container">
+            {% for semester in semesters %}
+                <a class="card courses" href="{% url 'faculty:subjects_page' semester.id %}">{{ semester.sem }}</a>
+            {% endfor %}
+        </div>
+        {% else %}
+            <h4>No data to display</h4>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

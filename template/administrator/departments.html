@@ -1,0 +1,42 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}Departments{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/administrator/departments.css' %}"> {% endblock %}
+{% block main_topic %} DEPARTMENTS {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'administrator:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'administrator:departments_page' %}">Departments/</a> 
+    </p>
+    <div class="content">
+        <a href="{% url 'administrator:adddepartments_page' %}" class="add-department-link">New department</a>
+        {% if departments %}
+        <table class="table card-container">
+            <thead>
+                <tr>
+                    <th>Departments</th>
+                    <th>Activity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for department in departments %}
+                <tr>
+                    <td>
+                        <a class="card small-cards" href="{% url 'administrator:courses_page' department.id %}">{{ department.department_name }}</a>
+                    </td>
+                    <td>
+                        <a href="{% url 'administrator:delete_departments' department.id %}" class="red-link">
+                            delete
+                        </a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+            <h4 class="sub-topic">No departments found! </h4>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

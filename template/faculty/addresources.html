@@ -1,0 +1,37 @@
+{% extends 'faculty_base.html' %}
+{% load static %}
+{% block title %}Add Resources{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/faculty/addresources.css' %}"> {% endblock %}
+{% block main_topic %} ADD RESOURCES {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'faculty:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'faculty:semesters_page' course.id %}">Semester {{ semester.sem }}/</a> 
+        <a href="{% url 'faculty:subjects_page' semester.id %}">{{ subject.subject_name }}/</a> 
+        <a href="{% url 'faculty:studymaterials_page' subject.id %}">Studymaterials/</a> 
+        <a href="{% url 'faculty:resources_page' subject.id %}">Resources/</a> 
+        <a href="{% url 'faculty:addresources_page' subject.id %}">AddResources/</a> 
+    </p>
+    <div class="content">
+       <form class="card card-container" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+            <table>
+                <tr>
+                    <th>Title:</th>
+                    <td>
+                        <input class="form-control" type="text" name="resource_title" placeholder="Enter title" id="" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Select a file:</th>
+                    <td>
+                        <input class="form-control" type="file" name="resource_file" id="" required>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="add resource" class="btn button-blue">
+       </form>
+    </div>
+</div>
+{% endblock %}

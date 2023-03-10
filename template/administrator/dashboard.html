@@ -1,0 +1,20 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}Dashboard{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/administrator/dashboard.css' %}"> {% endblock %}
+{% block main_topic %} DASHBOARD {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'administrator:dashboard_page' %}">Dashboard/</a> 
+    </p>
+    <div class="content">
+        <div class="card-container">
+            <a class="card small-cards" href="{% url 'administrator:users_page' %}">User</a>
+            <a class="card small-cards" href="{% url 'administrator:notice_page' %}">Notice</a>
+            <a class="card small-cards" href="{% url 'administrator:maintenance_page' %}">Maintenance</a>
+            <a class="card small-cards" href="{% url 'administrator:departments_page' %}">Department</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

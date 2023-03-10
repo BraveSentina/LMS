@@ -1,0 +1,101 @@
+
+.company-name{
+    text-align: center;
+    text-decoration: underline;
+    background:linear-gradient(to right,rgb(224, 136, 224),blue);
+    -webkit-text-fill-color: transparent;
+    -webkit-background-clip: text;
+    font-size: 50px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.purple-card{
+    background: linear-gradient(to right,rgb(177, 82, 206),rgb(126, 74, 216));
+    color: white;
+    padding: 5px;
+    /* margin: 0 3px; */
+    border: none;
+}
+
+.icon-container{
+    width: 100%;
+    /* height: 30px; */
+    /* background: rgb(255, 192, 192); */
+    font-size: 100px;
+    display: grid;
+    grid-template-columns: repeat(5,1fr);
+    padding: 4px;
+    /* background: red; */
+    /* position: relative; */
+    /* top: 10px; */
+    /* gap: 20px; */
+}
+
+.icon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 180px;
+    transition: .3s;
+    border-radius: 3px;
+    color: rgb(121, 121, 121);
+}
+
+.icon:nth-child(1):hover{
+    color: rgb(31, 100, 137);
+}
+
+.icon:nth-child(2):hover{
+    color: red;
+}
+
+.icon:nth-child(3):hover{
+    color: rgb(54, 174, 116);
+}
+
+.icon:nth-child(4):hover{
+    color: red;
+}
+
+.icon:nth-child(5):hover{
+    color: green;
+}
+
+.icon:hover{
+    /* color: white; */
+    box-shadow: 0 0 3px 1px rgb(196, 196, 196);
+}
+
+.images{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    /* margin: 15px; */
+}
+
+.images img{
+    width: 100%;
+    min-width: 360px;
+    max-width: 400px;
+    height: 250px;
+}
+
+@media (max-width:700px){
+    .icon-container{
+        grid-template-columns: repeat(3,1fr);
+    }
+
+    .images{
+        flex-direction: column;
+    }
+}
+@media (max-width:500px){
+    .icon-container{
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .images{
+        grid-template-columns: repeat(1,1fr);
+    }
+}

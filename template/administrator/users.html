@@ -1,0 +1,48 @@
+{% extends 'administrator_base.html' %}
+{% load static %}
+{% block title %}Users{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/administrator/users.css' %}"> {% endblock %}
+{% block main_topic %} USERS {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'administrator:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'administrator:users_page' %}">Users/</a> 
+    </p>
+    <div class="content">
+        <div class="card-container">
+            <a class="card small-cards" href="{% url 'administrator:addstudents_page' %}">Add student</a>
+            <a class="card small-cards" href="{% url 'administrator:addfaculties_page' %}">Add faculty</a>
+        </div>
+        <div class="search-container">
+            <input type="text" name="" id="" class="form-control">
+            <input type="submit" value="search" class="btn button-orange">
+        </div>
+        <div class="user-table">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>SL.NO</th>
+                        <th>EMAIL</th>
+                        <th>USER TYPE</th>
+                        <th>IS ACTIVATED</th>
+                        <th>HAS ACCESS</th>
+                        <th>DETAILS</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>abc@gmail.com</td>
+                        <td>student</td>
+                        <td>NO</td>
+                        <td>YES <a href="" class="red-link">Revoke</a></td>
+                        <td>Edit</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+    </div>
+</div>
+{% endblock %}

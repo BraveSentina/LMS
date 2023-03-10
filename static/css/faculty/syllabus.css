@@ -1,0 +1,22 @@
+.card-container{
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.sub-topic{
+    color: grey;
+    margin-top: 40px;
+}
+
+.syllabus-container{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 10px;
+}
+
+.syllabus-container .red-link{
+    width: fit-content;
+}

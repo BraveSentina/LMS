@@ -1,0 +1,68 @@
+{% extends 'faculty_base.html' %}
+{% load static %}
+{% block title %}References{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/faculty/addresources.css' %}"> {% endblock %}
+{% block main_topic %} LINKS OR REFERENCES {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'faculty:dashboard_page' %}">Dashboard/</a> 
+        <a href="{% url 'faculty:semesters_page' course.id %}">Semester {{ semester.sem }}/</a> 
+        <a href="{% url 'faculty:subjects_page' semester.id %}">{{ subject.subject_name }}/</a> 
+        <a href="{% url 'faculty:studymaterials_page' subject.id %}">Studymaterials/</a> 
+        <a href="{% url 'faculty:references_page' subject.id %}">References/</a> 
+    </p>
+    <div class="content">
+       <form class="card card-container" method="POST">
+        {% csrf_token %}
+            <table>
+                <tr>
+                    <th>Title:</th>
+                    <td>
+                        <input class="form-control" type="text" name="reference_title" id="" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Link:</th>
+                    <td>
+                        <input class="form-control" type="text" name="reference_link" id="" required>
+                    </td>
+                </tr>
+                <tr>
+                    <th>Description:</th>
+                    <td>
+                        <input class="form-control" type="text" name="reference_description" id="" required>
+                    </td>
+                </tr>
+            </table>
+            <input type="submit" value="add reference" class="btn button-blue">
+       </form>
+
+       <table class="table">
+        <thead>
+            <tr>
+                <th>SL.NO</th>
+                <th>TITLE</th>
+                <th>LINK</th>
+                <th>DESCRIPTION</th>
+                <th>ACTIVITY</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for reference in references %}
+            <tr>
+                <td>1</td>
+                <td>{{ reference.title }}</td>
+                <td><a href="{{ reference.link }}">{{ reference.link }}</a></td>
+                <td>{{ reference.description }}</td>
+                <td>
+                    <a class="red-link" href="{% url 'faculty:delete_references' reference.id %}">delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+
+       </table>
+    </div>
+</div>
+{% endblock %}

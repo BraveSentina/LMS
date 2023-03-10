@@ -1,0 +1,44 @@
+{% extends 'faculty_base.html' %}
+{% load static %}
+{% block title %}Syllabus{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/faculty/syllabus.css' %}"> {% endblock %}
+{% block main_topic %} SYLLABUS {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'faculty:dashboard_page' %}">Dashboard/</a>
+        <a href="{% url 'faculty:semesters_page' course.id %}">Semester {{ semester.sem }}/</a>
+        <a href="{% url 'faculty:subjects_page' semester.id %}">{{ subject.subject_name }}/</a>   
+        <a href="{% url 'faculty:studymaterials_page' subject.id %}">studymaterials/</a> 
+        <a href="{% url 'faculty:syllabus_page' subject.id %}">Syllabus/</a> 
+    </p>
+    <div class="content">
+       <form class="card card-container" method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
+           <table>
+            <tr>
+                <th>Select File:</th>
+                <td>
+                    <input class="form-control" type="file" name="syllabus_file" id="" required>
+                </td>
+            </tr>
+           </table>
+           <input type="submit" value="add or update" class="btn button-blue">
+       </form>
+       <h4 class="sub-topic">{{ course.course_name }} sem {{ semester.sem }}</h4>
+       {% if syllabus %}
+        <div class="card syllabus-container">
+                <table>
+                    <tr>
+                        <th>File name:</th>
+                        <td><a href="{{ syllabus.syllabus_file.url }}">{{ syllabus.syllabus_file }}</a></td>
+                    </tr>
+                </table>
+                <a href="{% url 'faculty:delete_syllabus' syllabus.id %}" class="red-link">delete</a>
+        </div>    
+       {% else %}
+        <h4>Data not found</h4>
+       {% endif %}
+    </div>
+</div>
+{% endblock %}

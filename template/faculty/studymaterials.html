@@ -1,0 +1,23 @@
+{% extends 'faculty_base.html' %}
+{% load static %}
+{% block title %}Study materials{% endblock %}
+{% block custom_link %}<link rel="stylesheet" href="{% static 'css/faculty/studymaterials.css' %}"> {% endblock %}
+{% block main_topic %} STUDY MATERIALS {% endblock %}
+{% block block_content %}
+<div class="card main-content">
+    <p class="card nav-path-container">
+        <a href="{% url 'faculty:dashboard_page' %}">Dashboard/</a>
+        <a href="{% url 'faculty:semesters_page' course.id %}">Semester {{ semester.sem }}/</a>
+        <a href="{% url 'faculty:subjects_page' semester.id %}">{{ subject.subject_name }}/</a>   
+        <a href="{% url 'faculty:studymaterials_page' subject.id %}">Studymaterials/</a> 
+    </p>
+    <div class="content">
+       <div class="card-container">
+           <a href="{% url 'faculty:resources_page' subject.id %}" class="card material">Resources</a>
+           <a href="{% url 'faculty:syllabus_page' subject.id %}" class="card material">Syllabus</a>
+           <a href="{% url 'faculty:videolectures_page' subject.id %}" class="card material">Video Lectures</a>
+           <a href="{% url 'faculty:references_page' subject.id %}" class="card material">Links or references</a>
+       </div>
+    </div>
+</div>
+{% endblock %}
